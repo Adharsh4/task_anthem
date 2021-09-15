@@ -30,6 +30,9 @@ export const fetchProducts = (props) => {
     return (dispatch) => {
         axios.get("https://fakestoreapi.com/products").then((response) => {
             dispatch(saveProducts(response.data))
+            if(props){
+                dispatch(getproduct(props.match.params.id))
+            }
         })
     }
 }

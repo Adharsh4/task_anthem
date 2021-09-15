@@ -13,16 +13,24 @@ const reducer = (state = initialState, action) => {
                 products: action.products
             }
         case actionTypes.ADDINCART:
+            let item = [...state.cart]
+            if(item && item.length > 0){
+                item = state.products.filter(ele => ele.id == action.singleProduct.id)
+                item = {
+                    ...item,
+                    quantity: item.quantity+1
+                }
+            }
             return{
                 ...state,
-                cart: [...state.cart, action.singleProduct]
+                cart: [...state.cart, {...item }]
             }
         case actionTypes.GETSELECTEDPRODUCT:
             let products = state.products
             console.log(action.id, products)
             return{
                 ...state,
-                selectedProduct: state.products.filter((ele) => ele.id === action.id)
+                selectedProduct: state.products.filter((ele) => ele.id == action.id)
             }
     }
 }
